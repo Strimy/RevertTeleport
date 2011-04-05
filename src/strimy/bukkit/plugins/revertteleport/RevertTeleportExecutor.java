@@ -70,9 +70,9 @@ public class RevertTeleportExecutor implements CommandExecutor
 			playerTpActions.remove(sender);
 		}
 		TeleportAction action = new TeleportAction();
-		action.setFrom(from);
+		//action.setFrom(from);
 		//action.setPlayer(who);
-		action.setTo(to);
+		//action.setTo(to);
 		playerTpActions.put(sender, action);
 	}
 	

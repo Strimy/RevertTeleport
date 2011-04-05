@@ -35,19 +35,27 @@ public class RTPlayerListener extends PlayerListener
 			{
 				if(args[0].equals("revert"))
 				{
-					if(playerTpActions.containsKey(event.getPlayer()))
+					if(playerTpActions.containsKey(sender))
 					{
 						TeleportAction action =  playerTpActions.get(sender);
-						HashMap<Player, Location> playerSet = action.getPlayersLocations();
+						HashMap<Player, TeleportLocations> playerSet = action.getPlayersLocations();
+						Set<Player> players = playerSet.keySet();
+						
 						action.clearPlayerList();
+						who = new Player[players.size()];
+						who = players.toArray(who);
 						
-						who = playerSet.keySet().toArray(who);
-						
-						for (Player player : playerSet.keySet()) 
+						for (Player player : players) 
 						{
-							action.addPlayer(player);
-							Location to = playerSet.get(player);
-							player.teleport(to);
+							TeleportLocations currentLocations = playerSet.get(player);
+							TeleportLocations newLocations = new TeleportLocations();
+							newLocations.setFrom(currentLocations.getTo());
+							newLocations.setTo(currentLocations.getFrom());
+							
+							action.addPlayer(player, newLocations);
+							player.teleport(newLocations.getTo());
+							sender.sendMessage(ChatColor.LIGHT_PURPLE+"Player " + player.getDisplayName()+ " teleported");
+							event.setCancelled(true);
 						}
 						
 						return;
@@ -73,20 +81,34 @@ public class RTPlayerListener extends PlayerListener
 					who = plugin.getServer().getOnlinePlayers();
 					toWho = findPlayerByName(args[1]);
 				}
+				else
+				{
+					who = new Player[1];
+					who[0] = findPlayerByName(args[0]);
+					toWho = findPlayerByName(args[1]);
+				}
 			}
 			
 			if(who != null && toWho != null)
 			{
 				TeleportAction action = new TeleportAction();
-				action.setTo(toWho.getLocation());
+				Location to = toWho.getLocation();
 				for (Player player : who) 
 				{
-					action.addPlayer(player);
+					TeleportLocations newLocations = new TeleportLocations();
+					newLocations.setFrom(player.getLocation());
+					newLocations.setTo(to);
+					action.addPlayer(player, newLocations);
 				}
 				if(playerTpActions.containsKey(event.getPlayer()))
 					playerTpActions.remove(event.getPlayer());
 				
 				playerTpActions.put(event.getPlayer(), action);
+				sender.sendMessage("Registered teleport");
+			}
+			else
+			{
+				sender.sendMessage("Cannot find an user");
 			}
 		}
 		

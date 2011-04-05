@@ -2,27 +2,27 @@ package strimy.bukkit.plugins.revertteleport;
 
 import java.util.HashMap;
 
-import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
 public class TeleportAction 
 {
 
-	private HashMap<Player, Location> playersToOriginalLocations = new HashMap<Player, Location>();
+	private HashMap<Player, TeleportLocations> playersToLocations = new HashMap<Player, TeleportLocations>();
 	
-	public void addPlayer(Player player)
+	public void addPlayer(Player player, TeleportLocations locations)
 	{
-		playersToLocations.put(player, player.getLocation());
+		playersToLocations.put(player, locations);
 	}
 	
 	public void clearPlayerList()
 	{
-		playersToLocations = new HashMap<Player, Location>();
+		playersToLocations = new HashMap<Player, TeleportLocations>();
 	}
 	
-	public HashMap<Player, Location> getPlayersLocations()
+	public HashMap<Player, TeleportLocations> getPlayersLocations()
 	{
 		return playersToLocations;
 	}
 
 }
+
