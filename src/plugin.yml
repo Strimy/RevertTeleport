@@ -1,0 +1,9 @@
+name: RevertTeleport
+main: strimy.bukkit.plugins.revertteleport.RevertTeleportPlugin
+version: 0.1b
+
+commands:
+    rtp: 
+        description: Allows to cancel a teleportation
+        usage: /rtp {who} {toWho}
+               /rtp revert
