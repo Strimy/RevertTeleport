@@ -53,11 +53,16 @@ public class RTPlayerListener extends PlayerListener
 							newLocations.setTo(currentLocations.getFrom());
 							
 							action.addPlayer(player, newLocations);
-							player.teleport(newLocations.getTo());
-							sender.sendMessage(ChatColor.LIGHT_PURPLE+"Player " + player.getDisplayName()+ " teleported");
-							event.setCancelled(true);
+							Player onlinePlayer = findPlayerByName(player.getDisplayName());
+							
+							if(onlinePlayer != null)
+							{
+								onlinePlayer.teleport(newLocations.getTo());
+								sender.sendMessage(ChatColor.LIGHT_PURPLE+"Player " + player.getDisplayName()+ " teleported");
+							}
+							
 						}
-						
+						event.setCancelled(true);
 						return;
 					}
 					else
@@ -100,8 +105,8 @@ public class RTPlayerListener extends PlayerListener
 					newLocations.setTo(to);
 					action.addPlayer(player, newLocations);
 				}
-				if(playerTpActions.containsKey(event.getPlayer()))
-					playerTpActions.remove(event.getPlayer());
+				if(playerTpActions.containsKey(sender))
+					playerTpActions.remove(sender);
 				
 				playerTpActions.put(event.getPlayer(), action);
 				sender.sendMessage("Registered teleport");
