@@ -32,8 +32,8 @@ public class RevertTeleportExecutor implements CommandExecutor
 			{
 				if(playerTpActions.containsKey(sender))
 				{
-					TeleportAction lastSenderAction = playerTpActions.get(sender);
-					sender.sendMessage(ChatColor.LIGHT_PURPLE+"Reverting last teleport...");
+					//TeleportAction lastSenderAction = playerTpActions.get(sender);
+					//sender.sendMessage(ChatColor.LIGHT_PURPLE+"Reverting last teleport...");
 					
 					// Teleport the player to his previous location
 					//teleport(sender, lastSenderAction.getPlayer(), lastSenderAction.getFrom());
@@ -63,7 +63,7 @@ public class RevertTeleportExecutor implements CommandExecutor
 	
 	private void teleport(CommandSender sender, Player who, Location to)
 	{
-		Location from = who.getLocation();
+		//Location from = who.getLocation();
 		who.teleport(to);
 		if(playerTpActions.containsKey(sender))
 		{

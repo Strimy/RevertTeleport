@@ -24,6 +24,7 @@ public class RevertTeleportPlugin extends JavaPlugin
 		RTPlayerListener playerListener = new RTPlayerListener(this);
 		//getServer().getPluginManager().registerEvent(Event.Type.PLAYER_TELEPORT, playerListener, Priority.Normal, this);
 		getServer().getPluginManager().registerEvent(Event.Type.PLAYER_COMMAND_PREPROCESS, playerListener, Priority.Normal, this);
+		getServer().getPluginManager().registerEvent(Event.Type.SERVER_COMMAND, playerListener, Priority.Normal, this);
 		
 		log.info("["+getDescription().getName()+"] Plugin loaded");
 		getCommand("rtp").setExecutor(new RevertTeleportExecutor(this));

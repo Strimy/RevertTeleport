@@ -113,7 +113,14 @@ public class RTPlayerListener extends PlayerListener
 			}
 			else
 			{
-				sender.sendMessage("Cannot find an user");
+				if(who == null)
+				{
+					sender.sendMessage("Cannot find the player to teleport");
+				}
+				if(toWho == null)
+				{
+					sender.sendMessage("Cannot find the destination player");
+				}
 			}
 		}
 		
@@ -122,15 +129,7 @@ public class RTPlayerListener extends PlayerListener
 	
 	private Player findPlayerByName(String name)
 	{
-		Player[] players = plugin.getServer().getOnlinePlayers();
-		for (Player player : players) 
-		{
-			if(player.getDisplayName().equals(name))
-			{
-				return player;
-			}
-		}
-		return null;
+		return plugin.getServer().getPlayer(name);
 	}
 
 }
