@@ -7,10 +7,11 @@ import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
-import org.bukkit.event.player.PlayerListener;
 
-public class RTPlayerListener extends PlayerListener 
+public class RTPlayerListener implements Listener
 {
 	RevertTeleportPlugin plugin;
 	HashMap<CommandSender, TeleportAction> playerTpActions = new HashMap<CommandSender, TeleportAction>();
@@ -20,7 +21,7 @@ public class RTPlayerListener extends PlayerListener
 		this.plugin = plugin;
 	}
 	
-	@Override
+	@EventHandler
 	public void onPlayerCommandPreprocess(PlayerCommandPreprocessEvent event) 
 	{
 		String command = event.getMessage();
@@ -123,8 +124,6 @@ public class RTPlayerListener extends PlayerListener
 				}
 			}
 		}
-		
-		super.onPlayerCommandPreprocess(event);
 	}
 	
 	private Player findPlayerByName(String name)
